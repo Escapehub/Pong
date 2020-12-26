@@ -8,7 +8,7 @@ class Paddle : public sf::RectangleShape
 public:
     enum Player {
         Player1, Player2
-    } ;
+    };
 private:
     float _x = 20;
     float _y = 100;
