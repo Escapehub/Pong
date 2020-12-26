@@ -14,7 +14,7 @@ private:
     float _y = 100;
     float _speed = 0.2;
 public:
-    Paddle(Player);
+    Paddle(Player, float);
     virtual ~Paddle();
     float getSpeed() { return _speed; }
 };

@@ -1,6 +1,7 @@
 #include "header/paddle.h"
 #include "header/score.h"
 #include "header/ball.h"
+#include "header/menu.h"
 
 int main()
 {
@@ -8,10 +9,12 @@ int main()
     float height = 1080;
     sf::RenderWindow window(sf::VideoMode(width, height), "Pong");
 
-    Paddle player1(Paddle::Player::Player1);
-    Paddle player2(Paddle::Player::Player2);
+    Paddle player1(Paddle::Player::Player1, height);
+    Paddle player2(Paddle::Player::Player2, height);
     Score score(window.getSize().x);
     Ball ball(window.getSize().x, window.getSize().y);
+    Menu menu(window.getSize().x, window.getSize().y);
+    bool isPlaying = false;
 
     while (window.isOpen())
     {
@@ -27,24 +30,44 @@ int main()
                 height = event.size.height;
                 break;
               case sf::Event::LostFocus:
-                //pause();
-                break;
-              case sf::Event::GainedFocus:
-                //resume();
+                isPlaying = false;
                 break;
               case sf::Event::KeyPressed:
-                switch (event.key.code) {
-                  case sf::Keyboard::Escape:
-                    window.close();
-                    break;
-                  case sf::Keyboard::Space:
-                    ball.Start();
-                    break;
-                  case sf::Keyboard::Z:
-                    ball.Reset();
-                    break;
-                  default:
-                    break;
+                if (isPlaying) {
+                  switch (event.key.code) {
+                    case sf::Keyboard::Escape:
+                      isPlaying = false;
+                      break;
+                    case sf::Keyboard::Space:
+                      ball.Start();
+                      break;
+                    case sf::Keyboard::Z:
+                      ball.Reset();
+                      break;
+                    default:
+                      break;
+                  }
+                }
+                else {
+                  switch (event.key.code) {
+                    case sf::Keyboard::Up:
+                      menu.moveUp();
+                      break;
+                    case sf::Keyboard::Down:
+                      menu.moveDown();
+                      break;
+                    case sf::Keyboard::Return:
+                      switch(menu.getPressedItem()) {
+                        case 0:
+                          isPlaying = true;
+                          break;
+                        case 1:
+                        window.close();
+                      }
+                      break;
+                    default:
+                      break;
+                  }
                 }
                 break;
             }
@@ -74,16 +97,22 @@ int main()
           score.addPlayer1();
           ball.Reset();
         }
-        if (ball.getPosition().y < 0) {
+        if (ball.getPosition().x < 0) {
           score.addPlayer2();
           ball.Reset();
         }
 
         window.clear();
-        window.draw(player1);
-        window.draw(player2);
-        window.draw(score.getScore());
-        ball.Update(window);
+        if (isPlaying) {
+          window.draw(player1);
+          window.draw(player2);
+          window.draw(score.getScore());
+          ball.Update(window);
+        }
+        else {
+          menu.Draw(window);
+        }
+
         window.display();
     }
 
