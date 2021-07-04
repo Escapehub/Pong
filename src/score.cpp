@@ -1,7 +1,7 @@
-#include "../header/score.h"
+#include "score.h"
 
 Score::Score(float width) {
-  _font.loadFromFile("fonts/arcade.ttf");
+  _font.loadFromFile("assets/fonts/arcade.ttf");
 
   _score.setFont(_font);
   _score.setCharacterSize(50);

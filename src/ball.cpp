@@ -1,4 +1,4 @@
-#include "../header/ball.h"
+#include "ball.h"
 
 Ball::Ball(float width, float height) {
   _windowWidth = width;

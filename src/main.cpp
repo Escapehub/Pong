@@ -1,7 +1,7 @@
-#include "header/paddle.h"
-#include "header/score.h"
-#include "header/ball.h"
-#include "header/menu.h"
+#include "paddle.h"
+#include "score.h"
+#include "ball.h"
+#include "menu.h"
 
 int main()
 {

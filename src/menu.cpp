@@ -1,7 +1,7 @@
-#include "../header/menu.h"
+#include "menu.h"
 
 Menu::Menu(float width, float height) {
-  _font.loadFromFile("fonts/arcade.ttf");
+  _font.loadFromFile("assets/fonts/arcade.ttf");
 
   // Title
   _title.setFont(_font);

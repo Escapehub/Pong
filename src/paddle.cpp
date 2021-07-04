@@ -1,4 +1,4 @@
-#include "../header/paddle.h"
+#include "paddle.h"
 
 Paddle::Paddle(Player player, float height) {
     this->setSize(sf::Vector2f(_x, _y));

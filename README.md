@@ -5,4 +5,10 @@ Pong made in sfml
 
 #### Compile
 
-sudo g++ main.cpp source/* -lsfml-graphics -lsfml-window -lsfml-system
+```shell
+$ mkdir build 
+$ cd build
+$ cmake ..
+$ make
+$ ./Pong
+```
