@@ -3,8 +3,8 @@
 #include <iostream>
 #include <math.h>
 
-#ifndef BALL
-#define BALL
+#ifndef __BALL__
+#define __BALL__
 
 class Ball : public sf::CircleShape
 {
@@ -12,9 +12,13 @@ public:
   enum State {
     Idle, MovingLeft, MovingRight
   };
+
 private:
-  State _currentState = State::Idle;
-  float _windowWidth, _windowHeight, _elevation;
+  State m_currentState;
+  float m_windowWidth;
+  float m_windowHeight;
+  float m_elevation;
+
 public:
   Ball(float, float);
   virtual ~Ball();
@@ -22,8 +26,9 @@ public:
   void Deflect();
   void Start();
   void Reset();
+
 private:
   float getSpeed(State);
 };
 
-#endif
+#endif // !__BALL__

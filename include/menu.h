@@ -1,22 +1,26 @@
 #include <SFML/Graphics.hpp>
 
-#ifndef MENU
-#define MENU
+#ifndef __MENU__
+#define __MENU__
 #define MAX_NUMBER_OF_ITEMS 2
 
 class Menu
 {
 private:
-  sf::Font _font;
-  sf::Text _title, _controlsP1, _controlsP2, _menu[MAX_NUMBER_OF_ITEMS];
-  int _selectedItem;
+  sf::Font m_font;
+  sf::Text m_title;
+  sf::Text m_controlsP1;
+  sf::Text m_controlsP2;
+  sf::Text m_menu[MAX_NUMBER_OF_ITEMS];
+  int m_selectedItem;
+
 public:
   Menu(float, float);
   virtual ~Menu();
   void Draw(sf::RenderWindow&);
   void moveUp();
   void moveDown();
-  int getPressedItem() { return _selectedItem; }
+  int getPressedItem() { return m_selectedItem; }
 };
 
-#endif
+#endif // !__MENU__

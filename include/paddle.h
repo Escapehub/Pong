@@ -9,14 +9,20 @@ public:
     enum Player {
         Player1, Player2
     };
+
 private:
-    float _x = 20;
-    float _y = 100;
-    float _speed = 0.2;
+    float m_x = 20;
+    float m_y = 100;
+    float m_speed = 0.2;
+
 public:
     Paddle(Player, float);
     virtual ~Paddle();
-    float getSpeed() { return _speed; }
+    float getSpeed() { return m_speed; }
+
+public:
+    static Paddle* GetPlayer1(float);
+    static Paddle* GetPlayer2(float);
 };
 
 #endif

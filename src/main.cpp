@@ -5,12 +5,10 @@
 
 int main()
 {
-    float width = 1920;
-    float height = 1080;
-    sf::RenderWindow window(sf::VideoMode(width, height), "Pong");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Pong");
 
-    Paddle player1(Paddle::Player::Player1, height);
-    Paddle player2(Paddle::Player::Player2, height);
+    Paddle* player1 = Paddle::GetPlayer1(window.getSize().y);
+    Paddle* player2 = Paddle::GetPlayer2(window.getSize().y);
     Score score(window.getSize().x);
     Ball ball(window.getSize().x, window.getSize().y);
     Menu menu(window.getSize().x, window.getSize().y);
@@ -26,11 +24,13 @@ int main()
                 window.close();
                 break;
               case sf::Event::Resized:
-                width = event.size.width;
-                height = event.size.height;
+              window.setSize(sf::Vector2u(event.size.width, event.size.height));
                 break;
               case sf::Event::LostFocus:
                 isPlaying = false;
+                break;
+              case sf::Event::GainedFocus:
+                isPlaying = true;
                 break;
               case sf::Event::KeyPressed:
                 if (isPlaying) {
@@ -74,22 +74,18 @@ int main()
         }
 
         // Player 1 movement
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-          player1.move(0, -player1.getSpeed());
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-          player1.move(0, player1.getSpeed());
-        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+          player1->move(0, -player1->getSpeed());
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+          player1->move(0, player1->getSpeed());
         // Player 2 movement
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-          player2.move(0, -player2.getSpeed());
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-          player2.move(0, player2.getSpeed());
-        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+          player2->move(0, -player2->getSpeed());
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+          player2->move(0, player2->getSpeed());
 
         // Collision
-        if (player1.getGlobalBounds().intersects(ball.getGlobalBounds()) || player2.getGlobalBounds().intersects(ball.getGlobalBounds()))
+        if (player1->getGlobalBounds().intersects(ball.getGlobalBounds()) || player2->getGlobalBounds().intersects(ball.getGlobalBounds()))
           ball.Deflect();
 
         // Score detection
@@ -103,16 +99,17 @@ int main()
         }
 
         window.clear();
-        if (isPlaying) {
-          window.draw(player1);
-          window.draw(player2);
+        if (isPlaying) 
+        {
+          window.draw(*player1);
+          window.draw(*player2);
           window.draw(score.getScore());
           ball.Update(window);
         }
-        else {
+        else 
+        {
           menu.Draw(window);
         }
-
         window.display();
     }
 

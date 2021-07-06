@@ -1,16 +1,17 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#ifndef SCORE
-#define SCORE
+#ifndef __SCORE__
+#define __SCORE__
 
 class Score
 {
 private:
-  int _player1 = 0;
-  int _player2 = 0;
-  sf::Text _score;
-  sf::Font _font;
+  int m_player1 = 0;
+  int m_player2 = 0;
+  sf::Text m_score;
+  sf::Font m_font;
+
 public:
   Score(float);
   virtual ~Score();
@@ -19,4 +20,5 @@ public:
   void Reset();
   sf::Text getScore();
 };
-#endif
+
+#endif // !++SCORE__
